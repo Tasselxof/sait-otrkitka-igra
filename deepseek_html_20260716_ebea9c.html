@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Святослав & Татьяна</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(180deg, #fff5f0 0%, #f0f8ff 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        .page-container { max-width: 1200px; margin: 0 auto; }
+
+        /* Hero */
+        .hero {
+            background: url('https://i.postimg.cc/GmdTKCP0/360-F-657703763-d7NEZb85FQEn-RIQr5c1b4szy-Cw-Q3sm1q.jpg') center/cover no-repeat;
+            border-radius: 30px;
+            padding: 100px 20px 90px;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.38);
+            border-radius: 30px;
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 {
+            font-size: 58px;
+            font-weight: 200;
+            letter-spacing: 3px;
+            font-family: 'Georgia', serif;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+        .ampersand {
+            font-size: 78px;
+            margin: 12px 0;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+        .hero p {
+            font-size: 17px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 3px 12px rgba(0,0,0,0.7);
+        }
+
+        /* Контент */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        @media (min-width: 768px) {
+            .content-grid { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 68px; }
+            .ampersand { font-size: 88px; }
+        }
+        .content-block {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        .content-block h2 {
+            font-size: 24px;
+            font-weight: 300;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        /* Галерея */
+        .gallery-section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .memory-card {
+            background: #fffaf0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+            aspect-ratio: 1 / 1.2;
+            transition: all 0.3s ease;
+        }
+        .memory-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(255,107,107,0.2);
+        }
+        .emoji-front {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            background: linear-gradient(135deg, #fff5eb, #fff0e0);
+        }
+        .photo-back {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .memory-card:hover .photo-back { opacity: 1; }
+
+        /* Игра */
+        .game-section {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+        }
+        .game-section h2 {
+            font-size: 24px;
+            font-weight: 300;
+            color: #ff8c42;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .game-wrapper {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.70);
+            border-radius: 48px;
+            padding: 32px 30px 42px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+        .game-header h3 {
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: #2c3e50;
+        }
+        .game-header h3 span { color: #ff8c42; font-weight: 400; }
+        .game-header .sub {
+            font-size: 12px;
+            color: #7f8c8d;
+            background: rgba(255, 140, 66, 0.08);
+            padding: 6px 16px;
+            border-radius: 60px;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto 20px;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 400 / 620;
+            background: #ffffffcc;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: grab;
+            touch-action: none;
+        }
+        canvas:active { cursor: grabbing; }
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .controls button {
+            background: white;
+            color: #2c3e50;
+            border: 1px solid #e0e0e0;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            flex: 1 0 auto;
+            min-width: 90px;
+            letter-spacing: 0.3px;
+        }
+        .controls button:hover {
+            background: #fff5f0;
+            border-color: #ffb88a;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(255, 140, 66, 0.10);
+        }
+        #rotateBtn {
+            background: #ff8c42;
+            border-color: #ff8c42;
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.25);
+        }
+        #rotateBtn:hover {
+            background: #ff7b2c;
+            border-color: #ff7b2c;
+            box-shadow: 0 10px 28px rgba(255, 140, 66, 0.35);
+        }
+        #rotateBtn:disabled {
+            background: #d5cbc8;
+            border-color: #d5cbc8;
+            color: #a09895;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        #flipBtn {
+            background: #f0a060;
+            border-color: #f0a060;
+            color: white;
+            box-shadow: 0 6px 20px rgba(240, 160, 96, 0.25);
+        }
+        #flipBtn:hover {
+            background: #e89050;
+            border-color: #e89050;
+            box-shadow: 0 10px 28px rgba(240, 160, 96, 0.35);
+        }
+        #flipBtn:disabled {
+            background: #d5cbc8;
+            border-color: #d5cbc8;
+            color: #a09895;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        #resetBtn {
+            background: #f0f4fa;
+            border-color: #dce4ec;
+        }
+        #resetBtn:hover {
+            background: #e6edf5;
+            border-color: #c0cedc;
+        }
+        .footer-note {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #95a5a6;
+            text-align: center;
+            letter-spacing: 0.3px;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            padding-top: 16px;
+            width: 100%;
+        }
+        .footer-note span { color: #ff8c42; }
+
+        /* Победная плашка */
+        .win-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .win-modal {
+            background: linear-gradient(135deg, #ffffff 0%, #fff8f5 100%);
+            border-radius: 32px;
+            padding: 40px 30px 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(255, 140, 66, 0.3);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .win-modal::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,140,66,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .win-modal::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255,180,136,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .win-icon {
+            font-size: 64px;
+            animation: bounce 0.8s ease infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+        .win-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ff8c42;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+        .win-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        .win-subtitle span {
+            color: #ff8c42;
+            font-weight: 600;
+        }
+        .audio-player {
+            background: linear-gradient(135deg, #fff5f0, #ffe8d6);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 20px rgba(255, 140, 66, 0.1);
+        }
+        .play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ff8c42;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.35);
+        }
+        .play-btn:hover {
+            background: #ff7b2c;
+            transform: scale(1.08);
+            box-shadow: 0 10px 28px rgba(255, 140, 66, 0.45);
+        }
+        .play-btn.playing {
+            background: #2c3e50;
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.35);
+        }
+        .audio-info {
+            flex: 1;
+            text-align: left;
+            min-width: 0;
+        }
+        .audio-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .audio-artist {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,140,66,0.15);
+            border-radius: 2px;
+            margin-top: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #ff8c42;
+            border-radius: 2px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        .close-btn {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid #e0d5cc;
+            color: #999;
+            padding: 10px 30px;
+            font-size: 14px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+            z-index: 1;
+        }
+        .close-btn:hover {
+            background: #fff5f0;
+            border-color: #ffb88a;
+            color: #ff8c42;
+            transform: translateY(-2px);
+        }
+
+        /* Конфетти */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            z-index: 999;
+            animation: confettiFall 3s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-12px); }
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @media (max-width: 992px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .memory-card { aspect-ratio: 1 / 1.2; }
+            .emoji-front { font-size: 62px; }
+        }
+        @media (max-width: 600px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .memory-card { aspect-ratio: 1 / 1.2; }
+            .emoji-front { font-size: 50px; }
+            .hero { padding: 70px 15px; border-radius: 22px; }
+            .hero h1 { font-size: 46px; }
+            .ampersand { font-size: 62px; }
+            .game-wrapper { padding: 20px 12px 24px; border-radius: 28px; }
+            .controls button { padding: 10px 12px; font-size: 12px; min-width: 70px; }
+            .win-modal { padding: 30px 20px 24px; }
+            .win-title { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Святослав</h1>
+                <div class="ampersand">&</div>
+                <h1>Татьяна</h1>
+                <p>Поздравляем с самым счастливым днём!</p>
+            </div>
+        </div>
+
+        <!-- Пожелания -->
+        <div class="content-grid">
+            <div class="content-block">
+                <h2>💕 Наше пожелание</h2>
+                <p>Пусть ваша любовь будет как летний день — ярка, тепла и полна света. Пусть каждый момент вместе наполняет сердца радостью!</p>
+            </div>
+            <div class="content-block">
+                <h2>🌞 Летняя история</h2>
+                <p>Две половинки одного целого. Ваша история — это чистая, искренняя любовь. Пусть летнее солнце вашего счастья светит вечно!</p>
+            </div>
+        </div>
+
+        <!-- Галерея -->
+        <div class="gallery-section">
+            <h2>📸 Ваши совместные моменты</h2>
+            <div class="photo-grid">
+                <div class="memory-card">
+                    <div class="emoji-front">❤️</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/KzX9pj0x/love.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">😄</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/Y9cXD0dw/smex.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">🤗</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/26pH9y0k/obnim.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">🚂</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/MTks3H9J/putes.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">🌳</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/MTks3H9S/prirod.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">🎮</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/vBRP2T0F/game.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">🎉</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/4dC82yBD/vecher.jpg')"></div>
+                </div>
+                <div class="memory-card">
+                    <div class="emoji-front">🎄</div>
+                    <div class="photo-back" style="background-image:url('https://i.postimg.cc/MTks3H9p/new.jpg')"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Игра -->
+        <div class="game-section">
+            <h2>🧩 Головоломка Katamino</h2>
+            <div class="game-wrapper">
+                <div class="game-header">
+                    <h3><span>Katamino</span> 4×8</h3>
+                    <span class="sub">для Святослава & Татьяны</span>
+                </div>
+                <canvas id="gameCanvas" width="400" height="620"></canvas>
+                <div class="controls">
+                    <button id="resetBtn">🔄 Сброс</button>
+                    <button id="rotateBtn" disabled>↻ Повернуть</button>
+                    <button id="flipBtn" disabled>↔ Отразить</button>
+                </div>
+                <div class="footer-note">
+                    <span>✦</span> кликни на фигуру, чтобы выделить · перетащи на поле <span>✦</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Аудиоплеер (ссылка на трек) -->
+    <audio id="winAudio" preload="auto">
+        <!-- ЗАМЕНИТЕ ССЫЛКУ НА ВАШ ТРЕК -->
+        <source src="https://example.com/gimn-svyatoslav-tatyana.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ============================================================
+        //  ИГРА KATAMINO
+        // ============================================================
+        const BOARD_COLS = 8;
+        const BOARD_ROWS = 4;
+        const CELL_SIZE = 38;
+        const BOARD_OFFSET_X = (400 - (BOARD_COLS * CELL_SIZE)) / 2;
+        const BOARD_OFFSET_Y = 25;
+        const TRAY_OFFSET_Y = 250;
+        const TRAY_START_X = 20;
+        const TRAY_CELL_SIZE = 85;
+        const TRAY_PADDING = 10;
+
+        let board = [];
+        let pieces = [];
+        let isWon = false;
+        let activePiece = null;
+        let winShown = false;
+
+        const pieceDefinitions = [
+            { id: 1, color: '#FF8C42', cells: [[0,0], [1,0], [2,0], [3,0]] },
+            { id: 2, color: '#FFA066', cells: [[0,0], [1,0], [0,1], [1,1]] },
+            { id: 3, color: '#FFB088', cells: [[0,0], [0,1], [0,2], [1,2]] },
+            { id: 4, color: '#FFC0A0', cells: [[0,0], [1,0], [2,0], [0,1]] },
+            { id: 5, color: '#FFD0B8', cells: [[0,0], [1,0], [2,0], [2,1]] },
+            { id: 6, color: '#F5A623', cells: [[0,0], [1,0], [2,0], [1,1]] },
+            { id: 7, color: '#F7B954', cells: [[0,0], [1,0], [2,0], [1,1]] },
+            { id: 8, color: '#F9CC7A', cells: [[0,0], [1,0], [1,1], [2,1]] }
+        ];
+
+        function getPieceBounds(cells) {
+            let minX = Infinity, minY = Infinity;
+            let maxX = -Infinity, maxY = -Infinity;
+            for (const cell of cells) {
+                minX = Math.min(minX, cell[0]);
+                minY = Math.min(minY, cell[1]);
+                maxX = Math.max(maxX, cell[0]);
+                maxY = Math.max(maxY, cell[1]);
+            }
+            return { minX, minY, maxX, maxY };
+        }
+
+        function calculateTrayScale(cells) {
+            const bounds = getPieceBounds(cells);
+            const pieceWidth = (bounds.maxX - bounds.minX + 1) * CELL_SIZE;
+            const pieceHeight = (bounds.maxY - bounds.minY + 1) * CELL_SIZE;
+            const availableWidth = TRAY_CELL_SIZE - TRAY_PADDING * 2;
+            const availableHeight = TRAY_CELL_SIZE - TRAY_PADDING * 2;
+            const scaleX = availableWidth / pieceWidth;
+            const scaleY = availableHeight / pieceHeight;
+            return Math.min(scaleX, scaleY, 1);
+        }
+
+        function rotateCells(cells) {
+            const rotated = cells.map(c => [-c[1], c[0]]);
+            const minX = Math.min(...rotated.map(c => c[0]));
+            const minY = Math.min(...rotated.map(c => c[1]));
+            return rotated.map(c => [c[0] - minX, c[1] - minY]);
+        }
+
+        function flipCells(cells) {
+            const maxX = Math.max(...cells.map(c => c[0]));
+            const flipped = cells.map(c => [maxX - c[0], c[1]]);
+            const minX = Math.min(...flipped.map(c => c[0]));
+            const minY = Math.min(...flipped.map(c => c[1]));
+            return flipped.map(c => [c[0] - minX, c[1] - minY]);
+        }
+
+        function canPlace(cells, boardX, boardY) {
+            for (const cell of cells) {
+                const rx = boardX + cell[0];
+                const ry = boardY + cell[1];
+                if (rx < 0 || rx >= BOARD_COLS || ry < 0 || ry >= BOARD_ROWS) return false;
+                if (board[ry][rx].occupied) return false;
+            }
+            return true;
+        }
+
+        function checkWin() {
+            for (let y = 0; y < BOARD_ROWS; y++) {
+                for (let x = 0; x < BOARD_COLS; x++) {
+                    if (!board[y][x].occupied) return false;
+                }
+            }
+            return true;
+        }
+
+        function repositionPieceInTray(piece) {
+            const index = piece.id - 1;
+            const row = Math.floor(index / 4);
+            const col = index % 4;
+            const cardX = TRAY_START_X + col * TRAY_CELL_SIZE;
+            const cardY = TRAY_OFFSET_Y + row * TRAY_CELL_SIZE;
+
+            const scale = calculateTrayScale(piece.cells);
+            piece.trayScale = scale;
+            const scaledSize = CELL_SIZE * scale;
+            const bounds = getPieceBounds(piece.cells);
+            const pieceWidth = (bounds.maxX - bounds.minX + 1) * scaledSize;
+            const pieceHeight = (bounds.maxY - bounds.minY + 1) * scaledSize;
+            const offsetX = (TRAY_CELL_SIZE - pieceWidth) / 2 - bounds.minX * scaledSize;
+            const offsetY = (TRAY_CELL_SIZE - pieceHeight) / 2 - bounds.minY * scaledSize;
+
+            piece.pixelX = cardX + offsetX;
+            piece.pixelY = cardY + offsetY;
+            piece.homeX = piece.pixelX;
+            piece.homeY = piece.pixelY;
+        }
+
+        function clearBoardCells(piece) {
+            if (!piece.isPlaced) return;
+            for (const cell of piece.cells) {
+                const rx = piece.boardX + cell[0];
+                const ry = piece.boardY + cell[1];
+                if (rx >= 0 && rx < BOARD_COLS && ry >= 0 && ry < BOARD_ROWS) {
+                    board[ry][rx].occupied = false;
+                    board[ry][rx].pieceId = null;
+                }
+            }
+        }
+
+        function fillBoardCells(piece) {
+            if (!piece.isPlaced) return;
+            for (const cell of piece.cells) {
+                const rx = piece.boardX + cell[0];
+                const ry = piece.boardY + cell[1];
+                if (rx >= 0 && rx < BOARD_COLS && ry >= 0 && ry < BOARD_ROWS) {
+                    board[ry][rx].occupied = true;
+                    board[ry][rx].pieceId = piece.id;
+                }
+            }
+        }
+
+        function initModel() {
+            board = Array.from({ length: BOARD_ROWS }, () =>
+                Array.from({ length: BOARD_COLS }, () => ({ occupied: false, pieceId: null }))
+            );
+
+            pieces = pieceDefinitions.map((def, index) => {
+                const piece = {
+                    id: def.id,
+                    color: def.color,
+                    cells: JSON.parse(JSON.stringify(def.cells)),
+                    isPlaced: false,
+                    boardX: null,
+                    boardY: null,
+                    isTrayScale: true,
+                    trayScale: 1
+                };
+                repositionPieceInTray(piece);
+                return piece;
+            });
+
+            isWon = false;
+            winShown = false;
+            activePiece = null;
+            updateButtons();
+        }
+
+        const canvas = document.getElementById('gameCanvas');
+        const rotateBtn = document.getElementById('rotateBtn');
+        const flipBtn = document.getElementById('flipBtn');
+        let draggedPiece = null;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        function updateButtons() {
+            const disabled = !activePiece || isWon;
+            rotateBtn.disabled = disabled;
+            flipBtn.disabled = disabled;
+        }
+
+        function getPieceAtMouse(x, y) {
+            for (let i = pieces.length - 1; i >= 0; i--) {
+                const p = pieces[i];
+                const scale = p.isTrayScale ? p.trayScale : 1;
+                const size = CELL_SIZE * scale;
+                for (const cell of p.cells) {
+                    const cx = p.pixelX + cell[0] * size;
+                    const cy = p.pixelY + cell[1] * size;
+                    if (x >= cx && x < cx + size && y >= cy && y < cy + size) {
+                        return p;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function startDragPiece(piece, mouseX, mouseY) {
+            draggedPiece = piece;
+            dragOffsetX = mouseX - piece.pixelX;
+            dragOffsetY = mouseY - piece.pixelY;
+
+            if (piece.isPlaced) {
+                clearBoardCells(piece);
+                piece.isPlaced = false;
+                piece.boardX = null;
+                piece.boardY = null;
+            }
+
+            if (piece.isTrayScale) {
+                piece.isTrayScale = false;
+                const bounds = getPieceBounds(piece.cells);
+                const pieceWidth = (bounds.maxX - bounds.minX + 1) * CELL_SIZE;
+                const pieceHeight = (bounds.maxY - bounds.minY + 1) * CELL_SIZE;
+                piece.pixelX = mouseX - pieceWidth / 2;
+                piece.pixelY = mouseY - pieceHeight / 2;
+                dragOffsetX = pieceWidth / 2;
+                dragOffsetY = pieceHeight / 2;
+            }
+
+            const idx = pieces.indexOf(piece);
+            if (idx !== -1) {
+                pieces.splice(idx, 1);
+                pieces.push(piece);
+            }
+        }
+
+        function tryPlacePiece(piece) {
+            const snapBoardX = Math.round((piece.pixelX - BOARD_OFFSET_X) / CELL_SIZE);
+            const snapBoardY = Math.round((piece.pixelY - BOARD_OFFSET_Y) / CELL_SIZE);
+
+            if (canPlace(piece.cells, snapBoardX, snapBoardY)) {
+                piece.boardX = snapBoardX;
+                piece.boardY = snapBoardY;
+                piece.pixelX = BOARD_OFFSET_X + snapBoardX * CELL_SIZE;
+                piece.pixelY = BOARD_OFFSET_Y + snapBoardY * CELL_SIZE;
+                piece.isPlaced = true;
+                piece.isTrayScale = false;
+
+                fillBoardCells(piece);
+
+                if (checkWin()) {
+                    isWon = true;
+                    activePiece = null;
+                    updateButtons();
+                    if (!winShown) {
+                        winShown = true;
+                        setTimeout(showWinModal, 400);
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if (isWon) return;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const mouseX = (e.clientX - rect.left) * scaleX;
+            const mouseY = (e.clientY - rect.top) * scaleY;
+
+            const target = getPieceAtMouse(mouseX, mouseY);
+            activePiece = target;
+            updateButtons();
+
+            if (target) {
+                startDragPiece(target, mouseX, mouseY);
+                draw();
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (draggedPiece) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                draggedPiece.pixelX = (e.clientX - rect.left) * scaleX - dragOffsetX;
+                draggedPiece.pixelY = (e.clientY - rect.top) * scaleY - dragOffsetY;
+                draw();
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (draggedPiece) {
+                if (!draggedPiece.isPlaced) {
+                    if (!tryPlacePiece(draggedPiece)) {
+                        draggedPiece.isTrayScale = true;
+                        repositionPieceInTray(draggedPiece);
+                    }
+                }
+                draggedPiece = null;
+                draw();
+            }
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (isWon) return;
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const mouseX = (touch.clientX - rect.left) * scaleX;
+            const mouseY = (touch.clientY - rect.top) * scaleY;
+
+            const target = getPieceAtMouse(mouseX, mouseY);
+            activePiece = target;
+            updateButtons();
+
+            if (target) {
+                startDragPiece(target, mouseX, mouseY);
+                draw();
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (draggedPiece) {
+                const rect = canvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                draggedPiece.pixelX = (touch.clientX - rect.left) * scaleX - dragOffsetX;
+                draggedPiece.pixelY = (touch.clientY - rect.top) * scaleY - dragOffsetY;
+                draw();
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (draggedPiece) {
+                if (!draggedPiece.isPlaced) {
+                    if (!tryPlacePiece(draggedPiece)) {
+                        draggedPiece.isTrayScale = true;
+                        repositionPieceInTray(draggedPiece);
+                    }
+                }
+                draggedPiece = null;
+                draw();
+            }
+        }, { passive: false });
+
+        function applyTransform(transformFn) {
+            if (!activePiece || isWon) return;
+
+            const newCells = transformFn(activePiece.cells);
+
+            if (activePiece.isPlaced) {
+                clearBoardCells(activePiece);
+                if (canPlace(newCells, activePiece.boardX, activePiece.boardY)) {
+                    activePiece.cells = newCells;
+                    fillBoardCells(activePiece);
+                } else {
+                    fillBoardCells(activePiece);
+                }
+            } else {
+                activePiece.cells = newCells;
+                if (activePiece.isTrayScale) {
+                    repositionPieceInTray(activePiece);
+                }
+            }
+
+            draw();
+        }
+
+        rotateBtn.addEventListener('click', () => applyTransform(rotateCells));
+        flipBtn.addEventListener('click', () => applyTransform(flipCells));
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            const existingOverlay = document.querySelector('.win-overlay');
+            if (existingOverlay) existingOverlay.remove();
+            const existingConfetti = document.querySelectorAll('.confetti');
+            existingConfetti.forEach(c => c.remove());
+            const audio = document.getElementById('winAudio');
+            audio.pause();
+            audio.currentTime = 0;
+            initModel();
+            draw();
+        });
+
+        const ctx = canvas.getContext('2d');
+
+        function drawSquare(x, y, color, size, isHighlight, isTray) {
+            const radius = isTray ? 4 : 6;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.roundRect(x, y, size, size, radius);
+            ctx.fill();
+
+            if (isHighlight) {
+                ctx.strokeStyle = '#ff8c42';
+                ctx.lineWidth = 3;
+            } else {
+                ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+                ctx.lineWidth = 1.5;
+            }
+            ctx.beginPath();
+            ctx.roundRect(x, y, size, size, radius);
+            ctx.stroke();
+        }
+
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                if (r > w / 2) r = w / 2;
+                if (r > h / 2) r = h / 2;
+                this.moveTo(x + r, y);
+                this.lineTo(x + w - r, y);
+                this.quadraticCurveTo(x + w, y, x + w, y + r);
+                this.lineTo(x + w, y + h - r);
+                this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+                this.lineTo(x + r, y + h);
+                this.quadraticCurveTo(x, y + h, x, y + h - r);
+                this.lineTo(x, y + r);
+                this.quadraticCurveTo(x, y, x + r, y);
+                this.closePath();
+                return this;
+            };
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < pieceDefinitions.length; i++) {
+                const row = Math.floor(i / 4);
+                const col = i % 4;
+                const cardX = TRAY_START_X + col * TRAY_CELL_SIZE;
+                const cardY = TRAY_OFFSET_Y + row * TRAY_CELL_SIZE;
+
+                const grad = ctx.createLinearGradient(cardX, cardY, cardX + TRAY_CELL_SIZE, cardY + TRAY_CELL_SIZE);
+                grad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
+                grad.addColorStop(1, 'rgba(245, 245, 250, 0.5)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.roundRect(cardX, cardY, TRAY_CELL_SIZE, TRAY_CELL_SIZE, 12);
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(200, 200, 210, 0.3)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.roundRect(cardX, cardY, TRAY_CELL_SIZE, TRAY_CELL_SIZE, 12);
+                ctx.stroke();
+            }
+
+            for (let y = 0; y < BOARD_ROWS; y++) {
+                for (let x = 0; x < BOARD_COLS; x++) {
+                    const px = BOARD_OFFSET_X + x * CELL_SIZE;
+                    const py = BOARD_OFFSET_Y + y * CELL_SIZE;
+                    drawSquare(px, py, '#faf7f2', CELL_SIZE, false, false);
+                    if (board[y][x].occupied) {
+                        drawSquare(px, py, 'rgba(255, 140, 66, 0.06)', CELL_SIZE, false, false);
+                    }
+                }
+            }
+
+            ctx.strokeStyle = '#e8e0d8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(10, TRAY_OFFSET_Y - 15);
+            ctx.lineTo(390, TRAY_OFFSET_Y - 15);
+            ctx.stroke();
+
+            if (draggedPiece && !draggedPiece.isPlaced) {
+                const snapBoardX = Math.round((draggedPiece.pixelX - BOARD_OFFSET_X) / CELL_SIZE);
+                const snapBoardY = Math.round((draggedPiece.pixelY - BOARD_OFFSET_Y) / CELL_SIZE);
+                if (canPlace(draggedPiece.cells, snapBoardX, snapBoardY)) {
+                    for (const cell of draggedPiece.cells) {
+                        const px = BOARD_OFFSET_X + (snapBoardX + cell[0]) * CELL_SIZE;
+                        const py = BOARD_OFFSET_Y + (snapBoardY + cell[1]) * CELL_SIZE;
+                        ctx.fillStyle = 'rgba(255, 140, 66, 0.10)';
+                        ctx.beginPath();
+                        ctx.roundRect(px, py, CELL_SIZE, CELL_SIZE, 6);
+                        ctx.fill();
+                    }
+                }
+            }
+
+            for (const p of pieces) {
+                const isActive = (p === activePiece);
+                const isTray = p.isTrayScale;
+                const scale = isTray ? p.trayScale : 1;
+                const size = CELL_SIZE * scale;
+                const isDragged = (p === draggedPiece);
+
+                if (isDragged) {
+                    ctx.shadowColor = 'rgba(0,0,0,0.15)';
+                    ctx.shadowBlur = 20;
+                    ctx.shadowOffsetX = 6;
+                    ctx.shadowOffsetY = 10;
+                } else {
+                    ctx.shadowColor = 'transparent';
+                }
+
+                for (const cell of p.cells) {
+                    let px = p.pixelX + cell[0] * size;
+                    let py = p.pixelY + cell[1] * size;
+                    drawSquare(px, py, p.color, size, isActive && !isDragged, isTray);
+                }
+            }
+            ctx.shadowColor = 'transparent';
+        }
+
+        // ============================================================
+        //  ПОБЕДА: КОНФЕТТИ + ПЛАШКА + ГИМН
+        // ============================================================
+        function spawnConfetti() {
+            const colors = ['#ff8c42', '#FFA066', '#FFB088', '#FFC0A0', '#FFD0B8', '#F5A623', '#F7B954', '#F9CC7A', '#ff7b2c', '#fff'];
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = -(Math.random() * 60) + 'px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 6) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 6) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3500);
+                }, i * 20);
+            }
+        }
+
+        function showWinModal() {
+            spawnConfetti();
+
+            const overlay = document.createElement('div');
+            overlay.className = 'win-overlay';
+
+            const modal = document.createElement('div');
+            modal.className = 'win-modal';
+
+            modal.innerHTML = `
+                <div class="win-icon">🏆</div>
+                <div class="win-title">Победа!</div>
+                <div class="win-subtitle">
+                    <span>Святослав & Татьяна</span><br>
+                    вы собрали поле!<br>
+                    🎁 Для вас — особый приз!
+                </div>
+                <div class="audio-player">
+                    <button class="play-btn" id="modalPlayBtn">▶</button>
+                    <div class="audio-info">
+                        <div class="audio-title">🎵 Гимн Святослава & Татьяны</div>
+                        <div class="audio-artist">Нейросеть · эксклюзив</div>
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="close-btn" id="closeModalBtn">✨ Играть ещё</button>
+            `;
+
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            const audio = document.getElementById('winAudio');
+            const playBtn = modal.querySelector('#modalPlayBtn');
+            const progressFill = modal.querySelector('#progressFill');
+            const progressBar = modal.querySelector('#progressBar');
+            let isPlaying = false;
+
+            playBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    playBtn.textContent = '▶';
+                    playBtn.classList.remove('playing');
+                    isPlaying = false;
+                } else {
+                    audio.play().catch(() => {
+                        alert('Не удалось воспроизвести аудио. Проверьте ссылку на трек.');
+                    });
+                    playBtn.textContent = '⏸';
+                    playBtn.classList.add('playing');
+                    isPlaying = true;
+                }
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    progressFill.style.width = percent + '%';
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                playBtn.textContent = '▶';
+                playBtn.classList.remove('playing');
+                isPlaying = false;
+                progressFill.style.width = '0%';
+            });
+
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = percent * audio.duration;
+            });
+
+            modal.querySelector('#closeModalBtn').addEventListener('click', () => {
+                audio.pause();
+                audio.currentTime = 0;
+                overlay.remove();
+                document.querySelectorAll('.confetti').forEach(c => c.remove());
+                initModel();
+                draw();
+            });
+
+            // Автозапуск гимна
+            setTimeout(() => {
+                audio.play().then(() => {
+                    playBtn.textContent = '⏸';
+                    playBtn.classList.add('playing');
+                    isPlaying = true;
+                }).catch(() => {});
+            }, 600);
+        }
+
+        initModel();
+        draw();
+    </script>
+</body>
+</html>
