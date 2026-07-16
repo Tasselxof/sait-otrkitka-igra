@@ -277,195 +277,256 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(6px);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
-        .win-modal {
-            background: linear-gradient(135deg, #ffffff 0%, #fff8f5 100%);
-            border-radius: 32px;
-            padding: 40px 30px 30px;
-            max-width: 420px;
+        .win-card {
+            background: white;
+            max-width: 440px;
             width: 90%;
-            text-align: center;
-            box-shadow: 0 30px 80px rgba(255, 140, 66, 0.3);
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.08),
+                0 0 0 1px rgba(0,0,0,0.04);
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .win-header {
+            height: 100px;
+            background: linear-gradient(135deg, #fff3e6, #ffe8d5, #fff0e0);
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
-        .win-modal::before {
+        .win-header::before {
             content: '';
             position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(255,140,66,0.15) 0%, transparent 70%);
-            border-radius: 50%;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%);
+            animation: shine 6s ease-in-out infinite;
         }
-        .win-modal::after {
-            content: '';
+        .glow-1 {
             position: absolute;
-            bottom: -30px;
-            right: -30px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(255,176,128,0.25) 0%, transparent 65%);
+            border-radius: 50%;
+            top: -50px;
+            left: -30px;
+        }
+        .glow-2 {
+            position: absolute;
             width: 120px;
             height: 120px;
-            background: radial-gradient(circle, rgba(255,180,136,0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,200,150,0.2) 0%, transparent 70%);
             border-radius: 50%;
+            bottom: -40px;
+            right: -20px;
+        }
+        .header-icon {
+            font-size: 42px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
+        }
+        .win-content {
+            padding: 28px 24px 32px;
+            text-align: center;
         }
         .win-icon {
-            font-size: 64px;
-            animation: bounce 0.8s ease infinite alternate;
-            position: relative;
-            z-index: 1;
+            font-size: 48px;
+            margin-bottom: 6px;
         }
         .win-title {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
-            color: #ff8c42;
-            margin: 10px 0;
-            position: relative;
-            z-index: 1;
-            letter-spacing: 0.5px;
+            color: #e87840;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
         }
-        .win-subtitle {
-            font-size: 16px;
-            color: #666;
+        .highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #fff8f2, #fff0e0);
+            color: #d06830;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 1px solid #f0c8a0;
+            margin: 6px 0 14px;
+        }
+        .sub-text {
+            font-size: 14px;
+            color: #8a7060;
             margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            line-height: 1.4;
+            line-height: 1.5;
         }
-        .win-subtitle span {
-            color: #ff8c42;
-            font-weight: 600;
-        }
-        .audio-player {
-            background: linear-gradient(135deg, #fff5f0, #ffe8d6);
+        .player {
+            background: linear-gradient(160deg, #fffaf5, #fff3e6);
+            border: 1.5px solid #f0d0b0;
             border-radius: 20px;
-            padding: 16px 20px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+        }
+        .player-inner {
             display: flex;
             align-items: center;
             gap: 14px;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 4px 20px rgba(255, 140, 66, 0.1);
         }
         .play-btn {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: #ff8c42;
-            border: none;
+            background: #fff;
+            border: 2.5px solid #e87840;
             cursor: pointer;
             font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            transition: all 0.3s;
+            color: #e87840;
+            transition: all 0.3s ease;
             flex-shrink: 0;
-            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.35);
+            box-shadow: 0 0 0 8px rgba(232,120,64,0.08);
+            position: relative;
+            z-index: 1;
         }
         .play-btn:hover {
-            background: #ff7b2c;
-            transform: scale(1.08);
-            box-shadow: 0 10px 28px rgba(255, 140, 66, 0.45);
+            background: #fff5ee;
+            border-color: #d06030;
+            color: #d06030;
+            box-shadow: 0 0 0 12px rgba(232,120,64,0.12);
+            transform: scale(1.04);
         }
         .play-btn.playing {
-            background: #2c3e50;
-            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.35);
+            background: #e87840;
+            color: #fff;
+            border-color: #e87840;
+            animation: playPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 0 12px rgba(232,120,64,0.15);
         }
         .audio-info {
             flex: 1;
             text-align: left;
             min-width: 0;
         }
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .badge {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+        .badge-bpm {
+            background: rgba(232,120,64,0.08);
+            color: #d06830;
+            border: 1px solid rgba(232,120,64,0.2);
+        }
+        .badge-style {
+            background: rgba(200,120,80,0.06);
+            color: #b86040;
+            border: 1px solid rgba(200,120,80,0.18);
+        }
         .audio-title {
             font-size: 13px;
-            font-weight: 600;
-            color: #2c3e50;
+            font-weight: 700;
+            color: #3d3028;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 2px;
         }
         .audio-artist {
-            font-size: 11px;
-            color: #999;
-            margin-top: 2px;
+            font-size: 10px;
+            color: #b0a090;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
-        .progress-bar {
+        .progress-container {
             width: 100%;
-            height: 4px;
-            background: rgba(255,140,66,0.15);
-            border-radius: 2px;
-            margin-top: 8px;
+            height: 5px;
+            background: rgba(232,120,64,0.08);
+            border-radius: 4px;
             cursor: pointer;
+            overflow: visible;
             position: relative;
         }
         .progress-fill {
             height: 100%;
-            background: #ff8c42;
-            border-radius: 2px;
-            transition: width 0.3s;
+            background: linear-gradient(90deg, #e87840, #f0a060, #f0c080);
+            border-radius: 4px;
             width: 0%;
+            position: relative;
+            transition: width 0.3s;
         }
-        .close-btn {
-            margin-top: 20px;
-            background: transparent;
-            border: 1px solid #e0d5cc;
-            color: #999;
-            padding: 10px 30px;
-            font-size: 14px;
-            border-radius: 60px;
+        .progress-dot {
+            position: absolute;
+            right: -3px;
+            top: -3px;
+            width: 11px;
+            height: 11px;
+            background: #fff;
+            border: 2px solid #e87840;
+            border-radius: 50%;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .restart-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f0a060, #e87840);
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.25s;
+            letter-spacing: 0.3px;
+            box-shadow: 0 6px 18px rgba(232,120,64,0.25);
             position: relative;
             z-index: 1;
         }
-        .close-btn:hover {
-            background: #fff5f0;
-            border-color: #ffb88a;
-            color: #ff8c42;
+        .restart-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(232,120,64,0.35);
+            background: linear-gradient(135deg, #f8b070, #f09050);
         }
-
-        /* Конфетти */
-        .confetti {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            z-index: 999;
-            animation: confettiFall 3s ease-out forwards;
-            pointer-events: none;
+        .restart-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(232,120,64,0.2);
         }
-
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+        @keyframes playPulse {
+            0%, 100% { box-shadow: 0 0 0 8px rgba(232,120,64,0.15); }
+            50% { box-shadow: 0 0 0 18px rgba(232,120,64,0); }
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-12px); }
-        }
-        @keyframes confettiFall {
-            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
+        /* Конец победной плашки */
 
-        @media (max-width: 992px) {
-            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .memory-card { aspect-ratio: 1 / 1.2; }
-            .emoji-front { font-size: 62px; }
-        }
         @media (max-width: 600px) {
             .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .memory-card { aspect-ratio: 1 / 1.2; }
@@ -1087,100 +1148,126 @@
             }
         }
 
-        function showWinModal() {
-            spawnConfetti();
-
+              function showWinModal() {
             const overlay = document.createElement('div');
             overlay.className = 'win-overlay';
 
-            const modal = document.createElement('div');
-            modal.className = 'win-modal';
-
-            modal.innerHTML = `
-                <div class="win-icon">🏆</div>
-                <div class="win-title">Победа!</div>
-                <div class="win-subtitle">
-                    <span>Святослав & Татьяна</span><br>
-                    вы собрали поле!<br>
-                    🎁 Для вас — особый приз!
-                </div>
-                <div class="audio-player">
-                    <button class="play-btn" id="modalPlayBtn">▶</button>
-                    <div class="audio-info">
-                        <div class="audio-title">🎵 Гимн Святослава & Татьяны</div>
-                        <div class="audio-artist">Нейросеть · эксклюзив</div>
-                        <div class="progress-bar" id="progressBar">
-                            <div class="progress-fill" id="progressFill"></div>
+            overlay.innerHTML = `
+                <div class="win-card">
+                    <div class="win-header">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="header-icon">🏆</div>
+                    </div>
+                    <div class="win-content">
+                        <div class="win-icon">🧩</div>
+                        <div class="win-title">Победа!</div>
+                        <div class="highlight">Святослав & Татьяна</div>
+                        <p class="sub-text">Поле собрано идеально!<br>Ваш особый приз готов</p>
+                        <div class="player">
+                            <div class="player-inner">
+                                <button class="play-btn" id="modalPlayBtn">▶</button>
+                                <div class="audio-info">
+                                    <div class="badges">
+                                        <span class="badge badge-bpm">130 BPM</span>
+                                        <span class="badge badge-style">Alt Rock</span>
+                                    </div>
+                                    <div class="audio-title">🎸 Гимн Святослава & Татьяны</div>
+                                    <div class="audio-artist">Modern Alternative Rock · эксклюзив</div>
+                                    <div class="progress-container" id="progressContainer">
+                                        <div class="progress-fill" id="progressFill">
+                                            <div class="progress-dot"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <button class="restart-btn" id="modalRestartBtn">✨ Играть ещё</button>
                     </div>
                 </div>
-                <button class="close-btn" id="closeModalBtn">✨ Играть ещё</button>
             `;
 
-            overlay.appendChild(modal);
             document.body.appendChild(overlay);
 
             const audio = document.getElementById('winAudio');
-            const playBtn = modal.querySelector('#modalPlayBtn');
-            const progressFill = modal.querySelector('#progressFill');
-            const progressBar = modal.querySelector('#progressBar');
+            const playBtn = overlay.querySelector('#modalPlayBtn');
+            const progressFill = overlay.querySelector('#progressFill');
+            const progressContainer = overlay.querySelector('#progressContainer');
             let isPlaying = false;
+            let progress = 0;
+            let interval = null;
 
             playBtn.addEventListener('click', () => {
                 if (isPlaying) {
-                    audio.pause();
+                    isPlaying = false;
                     playBtn.textContent = '▶';
                     playBtn.classList.remove('playing');
-                    isPlaying = false;
+                    audio.pause();
+                    clearInterval(interval);
                 } else {
-                    audio.play().catch(() => {
-                        alert('Не удалось воспроизвести аудио. Проверьте ссылку на трек.');
-                    });
+                    isPlaying = true;
                     playBtn.textContent = '⏸';
                     playBtn.classList.add('playing');
-                    isPlaying = true;
-                }
-            });
-
-            audio.addEventListener('timeupdate', () => {
-                if (audio.duration) {
-                    const percent = (audio.currentTime / audio.duration) * 100;
-                    progressFill.style.width = percent + '%';
+                    audio.play().catch(() => {});
+                    progress = 0;
+                    interval = setInterval(() => {
+                        if (audio.duration) {
+                            progress = (audio.currentTime / audio.duration) * 100;
+                            progressFill.style.width = progress + '%';
+                        }
+                        if (audio.ended || progress >= 100) {
+                            isPlaying = false;
+                            playBtn.textContent = '▶';
+                            playBtn.classList.remove('playing');
+                            clearInterval(interval);
+                        }
+                    }, 100);
                 }
             });
 
             audio.addEventListener('ended', () => {
+                isPlaying = false;
                 playBtn.textContent = '▶';
                 playBtn.classList.remove('playing');
-                isPlaying = false;
-                progressFill.style.width = '0%';
+                clearInterval(interval);
+                progressFill.style.width = '100%';
             });
 
-            progressBar.addEventListener('click', (e) => {
-                const rect = progressBar.getBoundingClientRect();
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
                 const percent = (e.clientX - rect.left) / rect.width;
-                audio.currentTime = percent * audio.duration;
+                if (audio.duration) {
+                    audio.currentTime = percent * audio.duration;
+                    progress = percent * 100;
+                    progressFill.style.width = progress + '%';
+                }
             });
 
-            modal.querySelector('#closeModalBtn').addEventListener('click', () => {
+            overlay.querySelector('#modalRestartBtn').addEventListener('click', () => {
                 audio.pause();
                 audio.currentTime = 0;
+                clearInterval(interval);
                 overlay.remove();
-                document.querySelectorAll('.confetti').forEach(c => c.remove());
                 initModel();
                 draw();
             });
 
-            // Автозапуск гимна
-            setTimeout(() => {
-                audio.play().then(() => {
-                    playBtn.textContent = '⏸';
-                    playBtn.classList.add('playing');
-                    isPlaying = true;
-                }).catch(() => {});
-            }, 600);
+            // Закрытие по клику на фон
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    clearInterval(interval);
+                    overlay.remove();
+                    initModel();
+                    draw();
+                }
+            });
         }
 
+        initModel();
+        draw();
+    </script>
         initModel();
         draw();
     </script>
