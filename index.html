@@ -173,10 +173,10 @@
         }
         canvas {
             display: block;
-            margin: 0 auto 10px;
+            margin: 0 auto 20px;
             width: 100%;
             height: auto;
-            aspect-ratio: 400 / 620;
+            aspect-ratio: 400 / 420;
             background: #ffffffcc;
             border-radius: 32px;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
@@ -187,7 +187,7 @@
         canvas:active { cursor: grabbing; }
         .controls {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -259,7 +259,7 @@
             border-color: #c0cedc;
         }
         .footer-note {
-            margin-top: 14px;
+            margin-top: 16px;
             font-size: 12px;
             color: #95a5a6;
             text-align: center;
@@ -545,14 +545,13 @@
 
         <!-- Игра -->
         <div class="game-section">
-            <h2>🧩 Головоломка Katamino
-            Пройди чтобы получить сюрприз!</h2>
+            <h2>🧩 Головоломка Katamino</h2>
             <div class="game-wrapper">
                 <div class="game-header">
                     <h3><span>Katamino</span> 4×8</h3>
                     <span class="sub">для Святослава & Татьяны</span>
                 </div>
-                <canvas id="gameCanvas" width="400" height="620"></canvas>
+                <canvas id="gameCanvas" width="400" height="420"></canvas>
                 <div class="controls">
                     <button id="resetBtn">🔄 Сброс</button>
                     <button id="rotateBtn" disabled>↻ Повернуть</button>
@@ -579,8 +578,8 @@
         const BOARD_ROWS = 4;
         const CELL_SIZE = 38;
         const BOARD_OFFSET_X = (400 - (BOARD_COLS * CELL_SIZE)) / 2;
-        const BOARD_OFFSET_Y = 25;
-        const TRAY_OFFSET_Y = 250;
+        const BOARD_OFFSET_Y = 9;
+        const TRAY_OFFSET_Y = 220;
         const TRAY_START_X = 20;
         const TRAY_CELL_SIZE = 85;
         const TRAY_PADDING = 10;
